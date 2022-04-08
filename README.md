@@ -13,7 +13,8 @@ If you want to produce the histograms with different binning, simply run the Pro
 
 Then this will run the analysis code to make the histograms with the number of bins and range provided in the options. It will take a while to run.
 
-To make some plots to see the distributions, run 'makePlots.C' using ROOT:
+To make some plots to see the distributions, run MakePlots.sh with the subdirectory name of the root file as an option. For example:
 ```
-root -l makePlots.C
+./MakePlots.sh bins_150_low_50_high_200
 ```
+Because the 150 bin samples are located in 'output_data/bins_150_low_50_high_200/'
