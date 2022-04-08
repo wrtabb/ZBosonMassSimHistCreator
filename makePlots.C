@@ -43,8 +43,8 @@ void Plot2D(TH2D*hist)
     canvas->SetRightMargin(0.15);
     canvas->SetLeftMargin(0.15);
 
-    hist->GetXaxis()->SetTitle("m^{reco} [GeV]");
-    hist->GetYaxis()->SetTitle("m^{true} [GeV]");
+    hist->GetYaxis()->SetTitle("m^{reco} [GeV]");
+    hist->GetXaxis()->SetTitle("m^{true} [GeV]");
     hist->Draw("colz");
 
     canvas_number++;

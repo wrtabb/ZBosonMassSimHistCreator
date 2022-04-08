@@ -216,8 +216,8 @@ void produceHistograms(int nBins, int lowBin, int highBin)
 		hInvMassReco->Fill(invMassReco,weight);
 		hInvMassHard->Fill(invMassHard,weight);
 		hInvMassDressed->Fill(invMassDressed,weight);
-		hMatrixHard->Fill(invMassReco,invMassHard,weight);
-		hMatrixDressed->Fill(invMassReco,invMassDressed,weight);
+		hMatrixHard->Fill(invMassHard,invMassReco,weight);
+		hMatrixDressed->Fill(invMassDressed,invMassReco,weight);
 	}// end loop over entries
 
 	// Save results to output file
