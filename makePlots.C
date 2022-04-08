@@ -1,15 +1,16 @@
-TString weight_file = "output_data/unfolding_histograms.root";
 TString canvas_name = "canvas";
 int canvas_number = 0;
-void Plot2D(TH2D*hist);
-void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed);
-void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue);
+void Plot2D(TString tag,TH2D*hist);
+void Plot1D(TString tag,TH1D*hReco,TH1D*hHard,TH1D*hDressed);
+void PlotProjections(TString tag,TH2D*hMatrix,TH1D*hReco,TH1D*hTrue);
 
-void makePlots()
+void makePlots(TString hist_location)
 {
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
-    TString input_file = weight_file;
+    TString input_file = "output_data/";
+    input_file += hist_location;
+    input_file += "/unfolding_histograms.root";
 
     // File to open
     TFile*open_file = new TFile(input_file);
@@ -26,14 +27,14 @@ void makePlots()
     hHard->SetLineColor(kRed);
     hDressed->SetLineColor(kBlue);
 
-    Plot2D(hMatrixHard);
-    Plot2D(hMatrixDressed);
-    Plot1D(hReco,hHard,hDressed);
-    PlotProjections(hMatrixHard,hReco,hHard);
-    PlotProjections(hMatrixDressed,hReco,hDressed);
+    Plot2D(hist_location,hMatrixHard);
+    Plot2D(hist_location,hMatrixDressed);
+    Plot1D(hist_location,hReco,hHard,hDressed);
+    PlotProjections(hist_location,hMatrixHard,hReco,hHard);
+    PlotProjections(hist_location,hMatrixDressed,hReco,hDressed);
 }
 
-void Plot2D(TH2D*hist)
+void Plot2D(TString tag,TH2D*hist)
 {
     TString canName = canvas_name;
     canName += canvas_number;
@@ -50,12 +51,13 @@ void Plot2D(TH2D*hist)
     canvas_number++;
 
     TString savename = "plots/";
+    savename += tag;
     savename += hist->GetName();
     savename += ".png";
     canvas->SaveAs(savename);
 }
 
-void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
+void Plot1D(TString tag,TH1D*hReco,TH1D*hHard,TH1D*hDressed)
 {
     TString canName = canvas_name;
     canName += canvas_number;
@@ -70,6 +72,7 @@ void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
     legend->AddEntry(hDressed,"dressed");
 
     hReco->SetMaximum(1e7);
+    hReco->GetXaxis()->SetTitle("m [GeV]");
     hReco->Draw("pe");
     hHard->Draw("hist,same");
     hDressed->Draw("hist,same");
@@ -77,12 +80,13 @@ void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
     canvas_number++;
 
     TString savename = "plots/";
+    savename += tag;
     savename += "1DPlots";
     savename += ".png";
     canvas->SaveAs(savename);
 }
 
-void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
+void PlotProjections(TString tag,TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
 {
     // This is a simple check to make sure that the migration matrix
     // Matches the 1D distributions
@@ -108,6 +112,7 @@ void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
     legend->AddEntry(projX,"matrix x-projection");
     legend->AddEntry(projY,"matrix y-projection");
 
+    hReco->GetXaxis()->SetTitle("m [GeV]");
     hReco->Draw("hist");
     hTrue->Draw("hist,same");
     projX->Draw("pe,same");
@@ -116,6 +121,7 @@ void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
     canvas_number++;
 
     TString savename = "plots/";
+    savename += tag;
     savename += "Projections";
     savename += ".png";
     canvas->SaveAs(savename);
