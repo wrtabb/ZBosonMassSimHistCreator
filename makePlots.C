@@ -1,17 +1,16 @@
 TString weight_file = "output_data/unfolding_histograms.root";
-TString noweight_file = "output_data/unfolding_histograms_noweights.root";
 TString canvas_name = "canvas";
 int canvas_number = 0;
 void Plot2D(TH2D*hist);
 void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed);
 void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue);
 
-void makePlots(bool weights = true)
+void makePlots()
 {
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
     TString input_file = weight_file;
-    if(!weights) input_file = noweight_file; 
+
     // File to open
     TFile*open_file = new TFile(input_file);
     
@@ -49,6 +48,11 @@ void Plot2D(TH2D*hist)
     hist->Draw("colz");
 
     canvas_number++;
+
+    TString savename = "plots/";
+    savename += hist->GetName();
+    savename += ".png";
+    canvas->SaveAs(savename);
 }
 
 void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
@@ -71,6 +75,11 @@ void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
     hDressed->Draw("hist,same");
     legend->Draw("same");
     canvas_number++;
+
+    TString savename = "plots/";
+    savename += "1DPlots";
+    savename += ".png";
+    canvas->SaveAs(savename);
 }
 
 void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
@@ -105,4 +114,9 @@ void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
     projY->Draw("pe,same");
     legend->Draw("same");
     canvas_number++;
+
+    TString savename = "plots/";
+    savename += "Projections";
+    savename += ".png";
+    canvas->SaveAs(savename);
 }

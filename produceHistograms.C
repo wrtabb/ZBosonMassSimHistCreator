@@ -206,14 +206,18 @@ void produceHistograms(int nBins, int lowBin, int highBin)
         // Get gen weight
         double genWeight = (GENEvt_weight/fabs(GENEvt_weight))/sumGenWeight;
 
+        // The weights are not important for the purposes of this
+        // But I'll leave them because they are just numbers 
+        // They won't increase the time this takes to run
+        // Unless you try to recalculate the genWeights, that takes a bit
 		double weight = xSec*dataLumi*genWeight;
 
 		// Fill histograms
 		hInvMassReco->Fill(invMassReco,weight);
 		hInvMassHard->Fill(invMassHard,weight);
 		hInvMassDressed->Fill(invMassDressed,weight);
-		hMatrixHard->Fill(invMassHard,invMassReco,weight);
-		hMatrixDressed->Fill(invMassDressed,invMassReco,weight);
+		hMatrixHard->Fill(invMassReco,invMassHard,weight);
+		hMatrixDressed->Fill(invMassReco,invMassDressed,weight);
 	}// end loop over entries
 
 	// Save results to output file
