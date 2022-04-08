@@ -1,6 +1,6 @@
 # ZBosonMassSimHistCreator
 
-This code is not written very efficiently, but I tried to at least make the most important parts easy to understand. 
+This code is not written very efficiently, but I tried to at least make the most important parts easy to understand. It takes a while to run though, maybe 90-120 minutes. 
 
 This code needs the ROOT data analysis framework to run. I wrote it using CMSSW 10.6.1.
 
