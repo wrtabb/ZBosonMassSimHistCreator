@@ -16,7 +16,7 @@
 #include "file_list.h"
 #include "global_variables.h"
 
-void produceHistograms()
+void produceHistograms(int nBins, int lowBin, int highBin)
 {
 	TH1::SetDefaultSumw2();
 
@@ -36,11 +36,11 @@ void produceHistograms()
     cout << endl;
 
 	// Define histograms
-	TH1D*hInvMassReco    = new TH1D("hInvMassReco","",150,50,200);
-	TH1D*hInvMassHard    = new TH1D("hInvMassHard","",150,50,200);
-	TH1D*hInvMassDressed = new TH1D("hInvMassDressed","",150,50,200);
-    TH2D*hMatrixHard     = new TH2D("hMatrixHard","",150,50,200,150,50,200);
-    TH2D*hMatrixDressed  = new TH2D("hMatrixDressed","",150,50,200,150,50,200);
+	TH1D*hInvMassReco    = new TH1D("hInvMassReco","",nBins,lowBin,highBin);
+	TH1D*hInvMassHard    = new TH1D("hInvMassHard","",nBins,lowBin,highBin);
+	TH1D*hInvMassDressed = new TH1D("hInvMassDressed","",nBins,lowBin,highBin);
+    TH2D*hMatrixHard     = new TH2D("hMatrixHard","",nBins,lowBin,highBin,nBins,lowBin,highBin);
+    TH2D*hMatrixDressed  = new TH2D("hMatrixDressed","",nBins,lowBin,highBin,nBins,lowBin,highBin);
 
 	// Define branches
     SetBranches(chain);
