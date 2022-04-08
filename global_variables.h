@@ -9,6 +9,8 @@ bool GetHardLeptons(int &idxHard1,int &idxHard2);
 std::vector<TLorentzVector> GetDressedLeptons(int &idxHardLead,int &idxHardSub);
 void Counter(Long64_t event,Long64_t total);
 double GetVertexChi2(double pt1,double pt2);
+void SetBranches(TChain*chain);
+double GetGenWeights(Long64_t nEntries,TChain*chain);
 
 // Where data is saves
 TString base_directory = "/mnt/t2ceph/cms/store/user/wtabb/DrellYan_13TeV_2016/v2p6/DYLL_M50toInf/base/";

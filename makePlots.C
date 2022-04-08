@@ -75,6 +75,8 @@ void Plot1D(TH1D*hReco,TH1D*hHard,TH1D*hDressed)
 
 void PlotProjections(TH2D*hMatrix,TH1D*hReco,TH1D*hTrue)
 {
+    // This is a simple check to make sure that the migration matrix
+    // Matches the 1D distributions
     TString canName = canvas_name;
     canName += canvas_number;
     TCanvas*canvas = new TCanvas(canName,"",0,0,1000,1000);

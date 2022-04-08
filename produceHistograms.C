@@ -43,109 +43,16 @@ void produceHistograms()
     TH2D*hMatrixDressed  = new TH2D("hMatrixDressed","",150,50,200,150,50,200);
 
 	// Define branches
-	chain->SetBranchAddress("nMuon",&nMuon,&b_nMuon);
-	chain->SetBranchAddress("Muon_pT",&Muon_pT,&b_Muon_pT);
-	chain->SetBranchAddress("Muon_Px",&Muon_Px,&b_Muon_Px);
-	chain->SetBranchAddress("Muon_Py",&Muon_Py,&b_Muon_Py);
-	chain->SetBranchAddress("Muon_Pz",&Muon_Pz,&b_Muon_Pz);
-	chain->SetBranchAddress("Muon_eta",&Muon_eta,&b_Muon_eta);
-	chain->SetBranchAddress("Muon_phi",&Muon_phi,&b_Muon_phi);
-	chain->SetBranchAddress("Muon_Inner_pT",&Muon_Inner_pT,&b_Muon_Inner_pT);
-	chain->SetBranchAddress("Muon_passTightID",&Muon_passTightID,
-				&b_Muon_passTightID);
-	chain->SetBranchAddress("Muon_charge",&Muon_charge,&b_Muon_charge);
-	chain->SetBranchAddress("Muon_PfChargedHadronIsoR04",
-				&Muon_PfChargedHadronIsoR04,
-				&b_Muon_PfChargedHadronIsoR04);
-	chain->SetBranchAddress("Muon_PfNeutralHadronIsoR04",
-				&Muon_PfNeutralHadronIsoR04,
-				&b_Muon_PfNeutralHadronIsoR04);
-	chain->SetBranchAddress("Muon_PfGammaIsoR04",
-				&Muon_PfGammaIsoR04,
-				&b_Muon_PfGammaIsoR04);
-	chain->SetBranchAddress("Muon_PFSumPUIsoR04",
-				&Muon_PFSumPUIsoR04,
-				&b_Muon_PFSumPUIsoR04);
-	chain->SetBranchAddress("HLT_ntrig",&HLT_ntrig,&b_HLT_ntrig);
-	chain->SetBranchAddress("HLT_trigType",&HLT_trigType,&b_HLT_trigType);
-	chain->SetBranchAddress("HLT_trigFired",&HLT_trigFired,&b_HLT_trigFired);
-	chain->SetBranchAddress("HLT_trigName",&pHLT_trigName);
-	chain->SetBranchAddress("nVertices",&nVertices,&b_nVertices);
-	chain->SetBranchAddress("nPileUp",&nPileUp,&b_nPileUp);
-	chain->SetBranchAddress("vtxTrkCkt1Pt",&pvtxTrkCkt1Pt);
-	chain->SetBranchAddress("vtxTrkCkt2Pt",&pvtxTrkCkt2Pt);
-	chain->SetBranchAddress("vtxTrkChi2",&pvtxTrkChi2);
-	chain->SetBranchAddress("vtxTrkNdof",&pvtxTrkNdof);
-
-    chain->SetBranchAddress("_prefiringweight", &_prefiringweight,
-                &b__prefiringweight);
-    chain->SetBranchAddress("GENnPair", &GENnPair, &b_GENnPair);
-    chain->SetBranchAddress("GENLepton_eta", &GENLepton_eta, 
-                &b_GENLepton_eta);
-    chain->SetBranchAddress("GENLepton_phi",&GENLepton_phi, 
-                &b_GENLepton_phi);
-    chain->SetBranchAddress("GENLepton_pT",&GENLepton_pT, 
-                &b_GENLepton_pT);
-    chain->SetBranchAddress("GENLepton_Px",&GENLepton_Px,
-                &b_GENLepton_Px);
-    chain->SetBranchAddress("GENLepton_Py",&GENLepton_Py,
-                &b_GENLepton_Py);
-    chain->SetBranchAddress("GENLepton_Pz",&GENLepton_Pz,
-                &b_GENLepton_Pz);
-    chain->SetBranchAddress("GENLepton_E",&GENLepton_E,
-                &b_GENLepton_E);
-    chain->SetBranchAddress("GENLepton_ID",&GENLepton_ID, 
-                &b_GENLepton_ID);
-    chain->SetBranchAddress("GENLepton_isHardProcess",
-                &GENLepton_isHardProcess,
-                &b_GENLepton_isHardProcess);
-    chain->SetBranchAddress("GENLepton_fromHardProcessFinalState",
-                &GENLepton_fromHardProcessFinalState,
-                &b_GENLepton_fromHardProcessFinalState);
-    chain->SetBranchAddress("nGenOthers",&nGenOthers,&b_nGenOthers);
-    chain->SetBranchAddress("GenOthers_eta",&GenOthers_eta,
-                &b_GenOthers_eta);
-    chain->SetBranchAddress("GenOthers_phi",&GenOthers_phi,
-                &b_GenOthers_phi);
-    chain->SetBranchAddress("GenOthers_pT",&GenOthers_pT,
-                &b_GenOthers_pT);
-    chain->SetBranchAddress("GenOthers_Px",&GenOthers_Px,
-                &b_GenOthers_Px);
-    chain->SetBranchAddress("GenOthers_Py",&GenOthers_Py,
-                &b_GenOthers_Py);
-    chain->SetBranchAddress("GenOthers_Pz",&GenOthers_Pz,
-                &b_GenOthers_Pz);
-    chain->SetBranchAddress("GenOthers_E",&GenOthers_E,
-                &b_GenOthers_E);
-    chain->SetBranchAddress("GenOthers_ID",&GenOthers_ID,
-                &b_GenOthers_ID);
-    chain->SetBranchAddress("GenOthers_isHardProcess",
-                &GenOthers_isHardProcess,
-                &b_GenOthers_isHardProcess);
-    chain->SetBranchAddress("GenOthers_isPromptFinalState",
-                &GenOthers_isPromptFinalState,
-                &b_GenOthers_isPromptFinalState);
-    chain->SetBranchAddress("GENEvt_weight",&GENEvt_weight,
-                &b_GENEvt_weight);
+    SetBranches(chain);
 
 	// Find the gen weight sum
-//	double sumGenWeight = 5.11429e+07;
 	double sumGenWeight = 5.11429e+07;
-	double genWeight;
-/*
+
     // Calculate generator weights
-    cout << endl;
-    cout << "Starting gen weight calculation" << endl;
-    Long64_t localEntry;
-    for(Long64_t iGen=0;iGen<nEntries;iGen++){
-		Counter(iGen,nEntries);
-        localEntry = chain->LoadTree(iGen);
-        b_GENEvt_weight->GetEntry(localEntry);
-        genWeight = GENEvt_weight/fabs(GENEvt_weight);
-        sumGenWeight += genWeight;
-    }
-*/
-    cout << "gen weight sum is " << sumGenWeight << endl;
+    // Already calculated with value defined above
+    // If needed to calculate again, uncomment the next line
+//    sumGenWeight = GetGenWeights(nEntries,chain); 
+
 	// Loop over events
 	cout << "*********************************" << endl;
     cout << "Starting event loop" << endl;
@@ -318,7 +225,7 @@ void produceHistograms()
     hMatrixHard->Write();
     hMatrixDressed->Write();
 	file->Close();
-}// end analyze
+}// end produceHistograms()
 
 bool PassDileptonSelection(double eta1,double eta2,double pt1,double pt2)
 {
@@ -624,4 +531,112 @@ double GetVertexChi2(double pt1,double pt2)
 			chi2_dof = vtxTrkChi2[i]/vtxTrkNdof[i];
 	}
 	return chi2_dof;	
+}
+
+void SetBranches(TChain*chain)
+{
+	chain->SetBranchAddress("nMuon",&nMuon,&b_nMuon);
+	chain->SetBranchAddress("Muon_pT",&Muon_pT,&b_Muon_pT);
+	chain->SetBranchAddress("Muon_Px",&Muon_Px,&b_Muon_Px);
+	chain->SetBranchAddress("Muon_Py",&Muon_Py,&b_Muon_Py);
+	chain->SetBranchAddress("Muon_Pz",&Muon_Pz,&b_Muon_Pz);
+	chain->SetBranchAddress("Muon_eta",&Muon_eta,&b_Muon_eta);
+	chain->SetBranchAddress("Muon_phi",&Muon_phi,&b_Muon_phi);
+	chain->SetBranchAddress("Muon_Inner_pT",&Muon_Inner_pT,&b_Muon_Inner_pT);
+	chain->SetBranchAddress("Muon_passTightID",&Muon_passTightID,
+				&b_Muon_passTightID);
+	chain->SetBranchAddress("Muon_charge",&Muon_charge,&b_Muon_charge);
+	chain->SetBranchAddress("Muon_PfChargedHadronIsoR04",
+				&Muon_PfChargedHadronIsoR04,
+				&b_Muon_PfChargedHadronIsoR04);
+	chain->SetBranchAddress("Muon_PfNeutralHadronIsoR04",
+				&Muon_PfNeutralHadronIsoR04,
+				&b_Muon_PfNeutralHadronIsoR04);
+	chain->SetBranchAddress("Muon_PfGammaIsoR04",
+				&Muon_PfGammaIsoR04,
+				&b_Muon_PfGammaIsoR04);
+	chain->SetBranchAddress("Muon_PFSumPUIsoR04",
+				&Muon_PFSumPUIsoR04,
+				&b_Muon_PFSumPUIsoR04);
+	chain->SetBranchAddress("HLT_ntrig",&HLT_ntrig,&b_HLT_ntrig);
+	chain->SetBranchAddress("HLT_trigType",&HLT_trigType,&b_HLT_trigType);
+	chain->SetBranchAddress("HLT_trigFired",&HLT_trigFired,&b_HLT_trigFired);
+	chain->SetBranchAddress("HLT_trigName",&pHLT_trigName);
+	chain->SetBranchAddress("nVertices",&nVertices,&b_nVertices);
+	chain->SetBranchAddress("nPileUp",&nPileUp,&b_nPileUp);
+	chain->SetBranchAddress("vtxTrkCkt1Pt",&pvtxTrkCkt1Pt);
+	chain->SetBranchAddress("vtxTrkCkt2Pt",&pvtxTrkCkt2Pt);
+	chain->SetBranchAddress("vtxTrkChi2",&pvtxTrkChi2);
+	chain->SetBranchAddress("vtxTrkNdof",&pvtxTrkNdof);
+
+    chain->SetBranchAddress("_prefiringweight", &_prefiringweight,
+                &b__prefiringweight);
+    chain->SetBranchAddress("GENnPair", &GENnPair, &b_GENnPair);
+    chain->SetBranchAddress("GENLepton_eta", &GENLepton_eta, 
+                &b_GENLepton_eta);
+    chain->SetBranchAddress("GENLepton_phi",&GENLepton_phi, 
+                &b_GENLepton_phi);
+    chain->SetBranchAddress("GENLepton_pT",&GENLepton_pT, 
+                &b_GENLepton_pT);
+    chain->SetBranchAddress("GENLepton_Px",&GENLepton_Px,
+                &b_GENLepton_Px);
+    chain->SetBranchAddress("GENLepton_Py",&GENLepton_Py,
+                &b_GENLepton_Py);
+    chain->SetBranchAddress("GENLepton_Pz",&GENLepton_Pz,
+                &b_GENLepton_Pz);
+    chain->SetBranchAddress("GENLepton_E",&GENLepton_E,
+                &b_GENLepton_E);
+    chain->SetBranchAddress("GENLepton_ID",&GENLepton_ID, 
+                &b_GENLepton_ID);
+    chain->SetBranchAddress("GENLepton_isHardProcess",
+                &GENLepton_isHardProcess,
+                &b_GENLepton_isHardProcess);
+    chain->SetBranchAddress("GENLepton_fromHardProcessFinalState",
+                &GENLepton_fromHardProcessFinalState,
+                &b_GENLepton_fromHardProcessFinalState);
+    chain->SetBranchAddress("nGenOthers",&nGenOthers,&b_nGenOthers);
+    chain->SetBranchAddress("GenOthers_eta",&GenOthers_eta,
+                &b_GenOthers_eta);
+    chain->SetBranchAddress("GenOthers_phi",&GenOthers_phi,
+                &b_GenOthers_phi);
+    chain->SetBranchAddress("GenOthers_pT",&GenOthers_pT,
+                &b_GenOthers_pT);
+    chain->SetBranchAddress("GenOthers_Px",&GenOthers_Px,
+                &b_GenOthers_Px);
+    chain->SetBranchAddress("GenOthers_Py",&GenOthers_Py,
+                &b_GenOthers_Py);
+    chain->SetBranchAddress("GenOthers_Pz",&GenOthers_Pz,
+                &b_GenOthers_Pz);
+    chain->SetBranchAddress("GenOthers_E",&GenOthers_E,
+                &b_GenOthers_E);
+    chain->SetBranchAddress("GenOthers_ID",&GenOthers_ID,
+                &b_GenOthers_ID);
+    chain->SetBranchAddress("GenOthers_isHardProcess",
+                &GenOthers_isHardProcess,
+                &b_GenOthers_isHardProcess);
+    chain->SetBranchAddress("GenOthers_isPromptFinalState",
+                &GenOthers_isPromptFinalState,
+                &b_GenOthers_isPromptFinalState);
+    chain->SetBranchAddress("GENEvt_weight",&GENEvt_weight,
+                &b_GENEvt_weight);
+}
+
+double GetGenWeights(Long64_t nEntries,TChain*chain)
+{
+	double genWeight;
+    double sumGenWeight;
+
+    cout << endl;
+    cout << "Starting gen weight calculation" << endl;
+    Long64_t localEntry;
+    for(Long64_t iGen=0;iGen<nEntries;iGen++){
+		Counter(iGen,nEntries);
+        localEntry = chain->LoadTree(iGen);
+        b_GENEvt_weight->GetEntry(localEntry);
+        genWeight = GENEvt_weight/fabs(GENEvt_weight);
+        sumGenWeight += genWeight;
+    }
+    cout << "gen weight sum is " << sumGenWeight << endl;
+
+    return sumGenWeight;
 }
