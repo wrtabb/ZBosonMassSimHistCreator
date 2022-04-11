@@ -6,6 +6,7 @@ void PlotProjections(TString tag,TH2D*hMatrix,TH1D*hReco,TH1D*hTrue);
 
 void makePlots(TString hist_location)
 {
+    gROOT->SetBatch(true);
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
     TString input_file = "output_data/";

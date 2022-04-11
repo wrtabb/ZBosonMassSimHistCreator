@@ -1,21 +1,44 @@
 # ZBosonMassSimHistCreator
 
-This code is not written very efficiently, but I tried to at least make the most important parts easy to understand. It takes a while to run though, maybe 90-120 minutes. 
+I was needing to remake the plots again with different binning, and the length of time it was taking added to the fact that it had to run locally on my machine was frustrating. So I updated the package to instead run using Condor. 
 
-This code needs the ROOT data analysis framework to run. I wrote it using CMSSW 10.6.1.
+One must have a certificate to run the code, but it takes maybe ten minutes now instead of two hours or more to run. 
 
-The data for producing the histograms is located in the storage space accessible from t3.unl.edu. If you want to run this code and cannot access the data, let me know and I'll help you figure it out.
+Previously, the code would run locally. It would load all ~900 root files and combine the trees into one TChain and then run sequentially over all events. Now a Condor job is submitted for each of the files and they are all run on a distributed network with many files being processed in parallel. This makes a tremendous difference in run time.
 
-If you want to produce the histograms with different binning, simply run the ProduceHistograms.sh bash script. It takes three arguments in this order: number_of_bins, low_bin, high_bin. For example:
+When the code is finished, it outputs the results into root files in the 'output_data' directory. These files can be quickly combined like this:
 ```
-./ProduceHistograms.sh 150 50 200
+hadd unfolding_histograms.root *.root
 ```
-This will make histograms with 150 bins starting at 50 GeV and up to 200 GeV.
 
-Then this will run the analysis code to make the histograms with the number of bins and range provided in the options. It will take a while to run.
+Then the 'unfolding_histograms.root' file can be moved to a directory and the ~900 individual files can be deleted.
 
-To make some plots to see the distributions, run MakePlots.sh with the subdirectory name of the root file as an option. For example:
+To run the package, just do:
 ```
-./MakePlots.sh bins_150_low_50_high_200
+./Submit.sh nbins lowbin highbin
 ```
-Because the 150 bin samples are located in 'output_data/bins_150_low_50_high_200/'
+
+Where nbins is the number of bins, low bin is the value of the lower edge of the histogram and high bin is the value of the upper edge of the histogram.
+
+I quickly made three different scenarios:
+```
+nbins = 150
+lowbin = 50
+highbin = 200
+```
+```
+nbins = 50
+lowbin = 20
+highbin = 500
+```
+```
+nbins = 50
+lowbin = 50
+highbin = 1500
+```
+
+These are located in the subdirectories within 'output_data'
+
+The matrix made with a much larger range looks more diagonal, so may be easier to solve. Also having wider bins helps with this as well. As can be seen from the case with 150 bins, we have a large blob at the z-boson mass peak with many off-diagonal elements. This may make it more difficult to solve.
+
+If you have any issues running the code, feel free to ask any questions you have of me. I am also perfectly happy to run the code for you again to make distributions fitting whatever parameters you have in mind.

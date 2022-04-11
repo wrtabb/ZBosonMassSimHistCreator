@@ -13,23 +13,26 @@
 #include <iostream>
 
 // Local headers
-#include "file_list.h"
+//#include "file_list.h"
 #include "global_variables.h"
 
-void produceHistograms(int nBins, int lowBin, int highBin)
+int count_tag = 0;
+void produceHistograms(TString file_name,int nBins, double lowBin, double highBin)
 {
 	TH1::SetDefaultSumw2();
 
 	// Load trees
-    int nFiles = file_list.size();
+//    int nFiles = file_list.size();
 	TChain*chain = new TChain(treeName);
     cout << "Loading trees" << endl;
     cout << "This may take a few minutes" << endl;
     cout << "..." << endl;
-    for(int i=0;i<nFiles;i++){
-        TString loadFile = base_directory+file_list.at(i);
-	    chain->Add(loadFile);
-    }
+//    for(int i=0;i<nFiles;i++){
+//        TString loadFile = base_directory+file_name;
+//	    chain->Add(loadFile);
+//    }
+    TString loadFile = base_directory+file_name;
+    chain->Add(loadFile);
 
 	Long64_t nEntries = chain->GetEntries();
     cout << nEntries << " events loaded" << endl;	
@@ -221,7 +224,8 @@ void produceHistograms(int nBins, int lowBin, int highBin)
 	}// end loop over entries
 
 	// Save results to output file
-	TString saveName = "output_data/unfolding_histograms.root";
+	TString saveName = "output_data/unfolding_histograms_";
+    saveName += file_name;
 	TFile*file = new TFile(saveName,"recreate");
     hInvMassReco->Write();
     hInvMassHard->Write();
@@ -392,35 +396,35 @@ void Counter(Long64_t event,Long64_t total)
 
 std::vector<TLorentzVector> GetDressedLeptons(int &idxDressedLead,int &idxDressedSub)
 {
-        TLorentzVector dressed1;
-        TLorentzVector dressed2;
+    TLorentzVector dressed1;
+    TLorentzVector dressed2;
 	int nDileptons = 0;
 
 	// Loop over muons and select two post-fsr gen-level muons 
         for(int iLep=0;iLep<GENnPair;iLep++){
                 for(int jLep=iLep+1;jLep<GENnPair;jLep++){
 
-			// require both leptons be muons
-                        if(!(abs(GENLepton_ID[iLep])==13 && abs(GENLepton_ID[jLep])==13))
-                                continue;
+                    // require both leptons be muons
+                    if(!(abs(GENLepton_ID[iLep])==13 && abs(GENLepton_ID[jLep])==13))
+                        continue;
 
-			// require that they be opposite sign
-                        if(GENLepton_ID[iLep]*GENLepton_ID[jLep]>0) continue;
+                    // require that they be opposite sign
+                    if(GENLepton_ID[iLep]*GENLepton_ID[jLep]>0) continue;
 			
-			// require that they be post-fsr
-                        if(!(GENLepton_fromHardProcessFinalState[iLep]==1 &&
-                           GENLepton_fromHardProcessFinalState[jLep]==1)) continue;
+                    // require that they be post-fsr
+                    if(!(GENLepton_fromHardProcessFinalState[iLep]==1 &&
+                       GENLepton_fromHardProcessFinalState[jLep]==1)) continue;
 
-			// determine which is lead and which is sub-lead
-			if(GENLepton_pT[iLep] > GENLepton_pT[jLep]){
-				idxDressedLead = iLep;
-				idxDressedSub = jLep;
-			}// end if iLep is leading electron
-			else{
-				idxDressedLead = jLep;
-				idxDressedSub = iLep;
-			}// end if jLep is leading electron
-			nDileptons++;
+                    // determine which is lead and which is sub-lead
+                    if(GENLepton_pT[iLep] > GENLepton_pT[jLep]){
+                        idxDressedLead = iLep;
+                        idxDressedSub = jLep;
+                    }// end if iLep is leading electron
+                    else{
+                        idxDressedLead = jLep;
+                        idxDressedSub = iLep;
+                    }// end if jLep is leading electron
+                    nDileptons++;
                 }//end inner loop over gen leptons
         }//end outer loop over gen leptons
 
@@ -628,7 +632,7 @@ void SetBranches(TChain*chain)
 double GetGenWeights(Long64_t nEntries,TChain*chain)
 {
 	double genWeight;
-    double sumGenWeight;
+    double sumGenWeight = 0;
 
     cout << endl;
     cout << "Starting gen weight calculation" << endl;

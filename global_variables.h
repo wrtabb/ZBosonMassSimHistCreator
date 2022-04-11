@@ -13,7 +13,8 @@ void SetBranches(TChain*chain);
 double GetGenWeights(Long64_t nEntries,TChain*chain);
 
 // Where data is saves
-TString base_directory = "/mnt/t2ceph/cms/store/user/wtabb/DrellYan_13TeV_2016/v2p6/DYLL_M50toInf/base/";
+//TString base_directory = "/mnt/t2ceph/cms/store/user/wtabb/DrellYan_13TeV_2016/v2p6/DYLL_M50toInf/base/";
+TString base_directory = "root://xrootd-local.unl.edu///store/user/wtabb/DrellYan_13TeV_2016/v2p6/DYLL_M50toInf/base/";
 
 // Global parameters
 TString treeName = "recoTree/DYTree";
