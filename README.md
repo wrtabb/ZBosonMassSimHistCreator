@@ -34,7 +34,7 @@ highbin = 500
 ```
 nbins = 50
 lowbin = 50
-highbin = 1500
+highbin = 150
 ```
 
 These are located in the subdirectories within 'output_data'
