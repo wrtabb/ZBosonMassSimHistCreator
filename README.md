@@ -2,7 +2,7 @@
 
 I was needing to remake the plots again with different binning, and the length of time it was taking added to the fact that it had to run locally on my machine was frustrating. So I updated the package to instead run using Condor. 
 
-One must have a certificate to run the code, but it takes maybe ten minutes now instead of two hours or more to run. 
+One must have a certificate to run the code, but it takes far less time now to run. 
 
 Previously, the code would run locally. It would load all ~900 root files and combine the trees into one TChain and then run sequentially over all events. Now a Condor job is submitted for each of the files and they are all run on a distributed network with many files being processed in parallel. This makes a tremendous difference in run time.
 
