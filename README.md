@@ -6,17 +6,17 @@ One must have a certificate to run the code, but it takes far less time now to r
 
 Previously, the code would run locally. It would load all ~900 root files and combine the trees into one TChain and then run sequentially over all events. Now a Condor job is submitted for each of the files and they are all run on a distributed network with many files being processed in parallel. This makes a tremendous difference in run time.
 
+To run the package, just do:
+```
+./Submit.sh nbins lowbin highbin
+```
+
 When the code is finished, it outputs the results into root files in the 'output_data' directory. These files can be quickly combined like this:
 ```
 hadd unfolding_histograms.root *.root
 ```
 
 Then the 'unfolding_histograms.root' file can be moved to a directory and the ~900 individual files can be deleted.
-
-To run the package, just do:
-```
-./Submit.sh nbins lowbin highbin
-```
 
 Where nbins is the number of bins, low bin is the value of the lower edge of the histogram and high bin is the value of the upper edge of the histogram.
 
