@@ -11,10 +11,7 @@ To run the package, just do:
 ./Submit.sh nbins lowbin highbin
 ```
 
-When the code is finished, it outputs the results into root files in the 'output_data' directory. These files can be quickly combined like this:
-```
-hadd unfolding_histograms.root *.root
-```
+When the code is finished, it outputs the results into root files in the 'output_data' directory. These files can be quickly combined using the CombineFiles.sh script.
 
 Then the 'unfolding_histograms.root' file can be moved to a directory and the ~900 individual files can be deleted.
 
