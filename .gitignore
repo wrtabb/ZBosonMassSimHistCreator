@@ -1,1 +1,4 @@
 nsf*
+*.root
+*.png
+*.log

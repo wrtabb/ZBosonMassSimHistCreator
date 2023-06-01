@@ -1,0 +1,18 @@
+
+universe        		= Docker 
+executable              = ProcessFiles.sh 
+arguments               = $(arg1) $(arg2) $(arg3) $(arg4)
+transfer_input_files    = ProcessFiles.py,global_variables.h,rootlogon.C,produceHistograms.C
+
++WantDocker             = True
+docker_image            ="unlhcc/osg-wn-el7"
+use_x509userproxy       = true
+
+Request_Memory          = 2000
+should_transfer_files   = YES 
+when_to_transfer_output = ON_EXIT
+transfer_output_files	= output_data
+error			        = logs/error.$(arg1).log
+output			        = logs/output.$(arg1).log
+log                     = logs/foo.$(arg1).log
+queue 
